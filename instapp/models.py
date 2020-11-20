@@ -1,6 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+class Profile(models.Model):
+    profile_photo = models.ImageField(upload_to='images/')
+    bio = models.CharField(max_length=250, blank=True)
+
 class Image(models.Model):
     image = models.ImageField(upload_to='images/')
     image_name = models.CharField(max_length=250, blank=True)
@@ -10,18 +16,15 @@ class Image(models.Model):
     comments = models.CharField(max_length=250, blank=True)
 
 
-    @classproperty
-    def save_image(self):
+    @classmethod
+    def save_image(cls, self):
         self.save()
 
-    def delete_image(self):
+    def delete_image(cls, self):
         self.delete()
 
-    def update_caption(self):
+    def update_caption(cls, self):
         self.update()
 
 
-class Profile(models.Model):
-    profile_photo = models.ImageField(upload_to='images/')
-    bio = models.CharField(max_length=250, blank=True)
 
