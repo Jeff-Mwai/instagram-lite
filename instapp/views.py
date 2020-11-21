@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http  import HttpResponse
 from .models import Image, Profile
 from django.contrib.auth.models import User
+from .forms import PostForm
 
 
 
@@ -16,16 +17,18 @@ def new_post(request):
     current_user = request.user
    
     if request.method == 'POST':
-        form = NewPostForm(request.POST, request.FILES)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            image = form.save(commit=False)
-            image.user = current_user
+            post = form.save(commit=False)
+            form.user = current_user
            
-            image.save()
+            form.save()
             
-        return redirect('home')
+        return redirect('index')
 
     else:
-        form = NewPostForm()
+        form = PostForm()
     return render(request, 'new_post.html', {"form": form})
+
+
 

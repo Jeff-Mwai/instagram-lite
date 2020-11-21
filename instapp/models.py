@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 class Profile(models.Model):
@@ -12,7 +13,7 @@ class Image(models.Model):
     image = models.ImageField(upload_to='images/')
     image_name = models.CharField(max_length=250, blank=True)
     image_caption = models.CharField(max_length=250, blank=True)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE,)
     likes = models.ManyToManyField(User, related_name='likes', blank=True, )
     comments = models.CharField(max_length=250, blank=True)
 
@@ -27,9 +28,6 @@ class Image(models.Model):
     def update_caption(cls, self):
         self.update()
 
-class POST(models.Model):
-    name = models.CharField(max_length = 30)
-    email = models.EmailField()
 
 
 
