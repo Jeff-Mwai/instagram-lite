@@ -1,7 +1,7 @@
 {%extends 'base.html'%}
 
 {% block content %}
-<div class="container">
+<!-- <div class="container">
 <img style="margin-left: 270px;" src="https://i.kym-cdn.com/entries/icons/mobile/000/010/944/instagram.jpg" height="270px" width="500px" alt="">
 <div class="row">
 <div class="col-md-6"></div>
@@ -11,6 +11,28 @@
          <img src="{{post.image.url}}" class="img-fluid">
     {%endfor%}
 </div>
+</div>
+</div> -->
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-8 mb-5">
+{%for post in posts%}
+<div class="card mb-5" style="width: 45rem;">
+  <img src="{{post.image.url}}" height="300px" class="img-fluid">
+  <div class="card-body">
+    <i class="far fa-heart" style="width: 50px; font-size: 35px;"></i>
+    <i class="far fa-comment" style="font-size: 35px;"></i>
+   <p style="font-weight: bold;">7 Likes</p>
+   <p>View All Comments</p>
+</div>
+</div>
+{%endfor%}
+<div class="col-md-4"></div>
+
+</div>
+
 </div>
 </div>
 {% endblock %}
