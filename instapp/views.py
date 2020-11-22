@@ -35,46 +35,40 @@ def new_post(request):
         form = PostForm()
     return render(request, 'new_post.html', {"form": form})
 
-
-# def new_post(request):
-#     images = Image.objects.all()
-#     users = User.objects.exclude(id=request.user.id)
+# def update_Profile(request):
 #     if request.method == 'POST':
-#         form = PostForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.user = request.user.profile
-#             post.save()
-#         return redirect('index')
+#         userForm = updateProfileForm(request.POST, instance=request.user)
+#         profile_form = profileForm(
+#             request.POST, request.FILES, instance=request.user)
+#         if  profile_form.is_valid():
+#             userForm.save()
+#             profile_form.save()
+#             return redirect('profile')
 #     else:
-#         form = PostForm()
-#     params = {
-#         'images': images,
-#         'form': form,
-#         'users': users,
+#         profile_form = profileForm(instance=request.user)
+#         user_form = UserUpdateForm(instance=request.user)
+#         params = {
+#             'user_form':user_form,
+#             'profile_form': profile_form
+#         }
+#     return render(request, 'editprofile.html', params)
 
-#     }
-#     return render(request, 'new_post.html', params)
 
-def user_profile(request, username):
-    user_prof = get_object_or_404(User, username=username)
-    if request.user == user_prof:
-        return redirect('profile', username=request.user.username)
-    user_posts = user_prof.profile.posts.all()
-    
-    followers = Follow.objects.filter(followed=user_prof.profile)
-    follow_status = None
-    for follower in followers:
-        if request.user.profile == follower.follower:
-            follow_status = True
-        else:
-            follow_status = False
-    params = {
-        'user_prof': user_prof,
-        'user_posts': user_posts,
-        'followers': followers,
-        'follow_status': follow_status
-    }
-    print(followers)
-    return render(request, 'user_profile.html', params)
+# @login_required(login_url='/accounts/login/')
+# def comment(request,id):
+#     images = Image.objects.filter(id=id).all()
+#     current_user = request.user
+#     user_profile = Profile.objects.get(user = current_user)
+#     image = get_object_or_404(Image, id=id)
+#     if request.method == 'POST':
+#         form = CommentForm(request.POST)
+#         if form.is_valid():
+#             comment = form.save(commit = False)
+#             comment.postt = image
+#             comment.userr = user_profile
+#             comment.save()
+#             return redirect('home')
+#     else:
+#         form = CommentForm()
+#     return render(request,'comment.html',{"form":form,"images":images})
 
