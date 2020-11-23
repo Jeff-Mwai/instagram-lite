@@ -9,6 +9,7 @@ urlpatterns=[
     path('new_post/',views.new_post,name = 'new_post'),
     path('profile/',views.profile,name = 'profile'),
     path('comment/<id>',views.comment,name = 'comment'),
+    path('search_results',views.search_results,name = 'search_results'),
 
 ]
 
