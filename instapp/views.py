@@ -3,7 +3,7 @@ from django.http  import HttpResponse
 from .models import Image, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 
 
 
@@ -54,21 +54,21 @@ def new_post(request):
 #     return render(request, 'editprofile.html', params)
 
 
-# @login_required(login_url='/accounts/login/')
-# def comment(request,id):
-#     images = Image.objects.filter(id=id).all()
-#     current_user = request.user
-#     user_profile = Profile.objects.get(user = current_user)
-#     image = get_object_or_404(Image, id=id)
-#     if request.method == 'POST':
-#         form = CommentForm(request.POST)
-#         if form.is_valid():
-#             comment = form.save(commit = False)
-#             comment.postt = image
-#             comment.userr = user_profile
-#             comment.save()
-#             return redirect('home')
-#     else:
-#         form = CommentForm()
-#     return render(request,'comment.html',{"form":form,"images":images})
+@login_required(login_url='/accounts/login/')
+def comment(request,id):
+    images = Image.objects.filter(id=id).all()
+    current_user = request.user
+    user_profile = Profile.objects.get(user = current_user)
+    image = get_object_or_404(Image, id=id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit = False)
+            comment.post = image
+            comment.user = user_profile
+            comment.save()
+            return redirect('index')
+    else:
+        form = CommentForm()
+    return render(request,'comment.html',{"form":form,"images":images})
 

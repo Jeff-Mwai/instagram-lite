@@ -8,7 +8,7 @@ urlpatterns=[
     path('',views.index, name = 'index'),
     path('new_post/',views.new_post,name = 'new_post'),
     path('profile/',views.profile,name = 'profile'),
-    path('user_profile/',views.user_profile,name = 'user_profile'),
+    path('comment/',views.comment,name = 'comment'),
 
 ]
 
