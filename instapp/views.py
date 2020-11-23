@@ -4,10 +4,12 @@ from .models import Image, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import PostForm, CommentForm
+from django.shortcuts import get_object_or_404
 
 
 
 # Create your views here.
+@login_required(login_url="/accounts/login/")
 def index(request):
     posts = Image.objects.all()
     return render(request, 'index.html',{"posts":posts})

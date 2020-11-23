@@ -23,7 +23,7 @@
   <img src="{{post.image.url}}" height="300px" class="img-fluid">
   <div class="card-body">
     <a href="#"><i class="far fa-heart" style="width: 50px; font-size: 35px;"></i></a>
-    <a href="{% url 'comment' %}"><i class="far fa-comment" style="font-size: 35px;"></i></a>
+    <a href="{% url 'comment' post.id %}"><i class="far fa-comment" style="font-size: 35px;"></i></a>
    <p style="font-weight: bold;">7 Likes</p>
    <p>View All Comments</p>
 </div>

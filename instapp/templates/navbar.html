@@ -13,11 +13,42 @@
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <a class="navbar-brand" style= "font-family: 'Lobster', cursive; font-size: 30px;" href="{% url 'index' %}">Instagram</a>
    
-    <form class="form-inline my-2 my-lg-0" style="margin-left: 180px;">
+    <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
-    <a href="{% url 'profile' %}"><i class="far fa-user-circle" style="font-size: 30px; margin-left: 210px; color: black;"></i></a>
+
+         <div class="col-sm-6 col-md-6" style="margin-top: 15px;">
+        {% if user.is_authenticated %}
+        <ul>
+            <a href="#" class="dropdown-toggle btn" data-toggle="dropdown" role="button"
+              aria-expanded="false">Account
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="{% url 'index' %}">Home</a>
+              </li>
+              <li>
+                <a href="{% url 'profile' %}">Profile</a>
+              </li>
+              <li>
+                <a href="/accounts/password/change">Change Password</a>
+              </li>
+              <li>
+                <a href="/logout">Logout</a>
+              </li>
+            </ul>
+
+        </ul>
+        {% else %}
+        <li>
+          <a class='btn btn-default' href="/accounts/login">Login</a>
+        </li>
+
+        {% endif %}
+      </div>
+    
   </div>
 </nav>
 </body>
