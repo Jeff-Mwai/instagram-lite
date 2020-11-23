@@ -13,6 +13,14 @@ class Profile(models.Model):
     def __str__(self):
         return self.bio
 
+    def save_profile(self):
+        self.save()
+
+    @classmethod
+    def search_by_name(cls,search_term):
+        userProfile = cls.objects.filter(user__icontains=search_term)
+        return userProfile
+
 class Image(models.Model):
     image = models.ImageField(upload_to='images/')
     image_name = models.CharField(max_length=250)

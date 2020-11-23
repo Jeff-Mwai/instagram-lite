@@ -37,6 +37,19 @@ def new_post(request):
         form = PostForm()
     return render(request, 'new_post.html', {"form": form})
 
+def search_results(request):
+
+    if 'person' in request.GET and request.GET["person"]:
+        search_term = request.GET.get("person")
+        searched_profile = Profile.search_by_name(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"searched_profile": searched_profile})
+
+    else:
+        message = "You haven't searched for any profile"
+        return render(request, 'search.html',{"message":message})
+
 # def update_Profile(request):
 #     if request.method == 'POST':
 #         userForm = updateProfileForm(request.POST, instance=request.user)
