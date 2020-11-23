@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http  import HttpResponse
+from django.http  import HttpResponse, HttpResponseRedirect
 from .models import Image, Profile, Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -84,7 +84,7 @@ def comment(request,id):
             comment.post = image
             comment.user = user_profile
             comment.save()
-            return redirect('index')
+            return HttpResponseRedirect(request.path_info)
     else:
         form = CommentForm()
     return render(request,'comment.html',{"form":form,"images":images, "comments": comments})
