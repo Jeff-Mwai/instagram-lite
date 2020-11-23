@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse
-from .models import Image, Profile
+from .models import Image, Profile, Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import PostForm, CommentForm
@@ -12,6 +12,7 @@ from django.shortcuts import get_object_or_404
 @login_required(login_url="/accounts/login/")
 def index(request):
     posts = Image.objects.all()
+    
     return render(request, 'index.html',{"posts":posts})
 
 def profile(request):
@@ -72,6 +73,7 @@ def search_results(request):
 @login_required(login_url='/accounts/login/')
 def comment(request,id):
     images = Image.objects.filter(id=id).all()
+    comments = Comment.objects.filter(post=id).all()
     current_user = request.user
     user_profile = Profile.objects.get(user = current_user)
     image = get_object_or_404(Image, id=id)
@@ -85,5 +87,5 @@ def comment(request,id):
             return redirect('index')
     else:
         form = CommentForm()
-    return render(request,'comment.html',{"form":form,"images":images})
+    return render(request,'comment.html',{"form":form,"images":images, "comments": comments})
 

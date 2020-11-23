@@ -2,6 +2,9 @@
 {% load bootstrap4 %}
 {% block content %}
 <div class="container">
+
+<div class="row">
+<div class="col-md-6">
     <div>
         <form method='POST'>
             {% csrf_token %}
@@ -10,6 +13,26 @@
             <input type="submit" value="Comment" class="btn btn-success">
         </form>
     </div>
+</div>
+
+<div class="col-md-6">
+{% for comment in comments %}
+
+<div class="card mb-3">
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{comment.comment}}</p>
+      <footer class="blockquote-footer">by<cite title="Source Title">  {{comment.user}}</cite></footer>
+    </blockquote>
+  </div>
+</div>
+
+
+{% endfor %}
+</div>
+
+</div>
+
 </div>
 
 {% endblock %}
