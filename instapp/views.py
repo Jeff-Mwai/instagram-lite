@@ -3,8 +3,9 @@ from django.http  import HttpResponse, HttpResponseRedirect
 from .models import Image, Profile, Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, RegistrationForm, ProfileForm
 from django.shortcuts import get_object_or_404
+
 
 
 
@@ -88,4 +89,27 @@ def comment(request,id):
     else:
         form = CommentForm()
     return render(request,'comment.html',{"form":form,"images":images, "comments": comments})
+
+def register(request):
+    if request.method=="POST":
+        form=RegistrationForm(request.POST)
+        procForm=ProfileForm(request.POST, request.FILES)
+        if form.is_valid() and procForm.is_valid():
+            username=form.cleaned_data.get('username')
+            user=form.save()
+            profile=procForm.save(commit=False)
+            profile.user=user
+            profile.save()
+
+            # messages.success(request, f'Successfully created Account!.You can now login as {username}!')
+        return redirect('login')
+    else:
+        form= RegistrationForm()
+        prof=ProfileForm()
+    params={
+        'form':form,
+        'profForm': prof
+    }
+    return render(request, 'registration/registration_form.html', params)    
+
 

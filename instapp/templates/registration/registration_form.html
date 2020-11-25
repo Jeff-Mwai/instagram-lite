@@ -15,9 +15,10 @@
         </div>
         <div class="panel-body">
 
-          <form action="/accounts/register/" method="post">
+          <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% bootstrap_form form %}
+            {% bootstrap_form  profForm%}
             <div class="form-group">
               <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
             </div>
@@ -31,7 +32,7 @@
       </div>
       <div class="border-top pt-3 mt-5 border-bottom">
         <p>
-          Already have An Account? <a class="ml-2" href="/accounts/login/"><strong>Log In</strong></a>
+          Already have An Account? <a class="ml-2" href="/login/"><strong>Log In</strong></a>
         </p>
       </div>
     </div>
