@@ -15,9 +15,6 @@ import os
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
-
-import os
 import django_heroku
 import dj_database_url
 from decouple import config,Csv
@@ -59,7 +56,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'dvr_lt)&3gp9b0$axqr&@^#xvt*%j6o$j&xxy2$#)jqy=^c*+!'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -117,15 +114,6 @@ WSGI_APPLICATION = 'instaproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'insta',
-        'USER': 'moringa',
-        'PASSWORD': 'KingJeffa00*'
-
-    }
-}
 
 
 # Password validation
