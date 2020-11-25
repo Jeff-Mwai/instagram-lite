@@ -13,6 +13,7 @@ urlpatterns=[
     path('search_results',views.search_results,name = 'search_results'),
     path('register/',views.register, name='registration'),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('updateprofile/', views.update_profile, name='updateprofile'),
 
 ]
 

@@ -3,8 +3,9 @@ from django.http  import HttpResponse, HttpResponseRedirect
 from .models import Image, Profile, Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import PostForm, CommentForm, RegistrationForm, ProfileForm
+from .forms import PostForm, CommentForm, RegistrationForm, ProfileForm, UserUpdateForm
 from django.shortcuts import get_object_or_404
+
 
 
 
@@ -18,6 +19,24 @@ def index(request):
 
 def profile(request):
     return render(request, 'profile.html')
+
+def update_profile(request):
+    if request.method == 'POST':
+        userForm = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(
+            request.POST, request.FILES, instance=request.user)
+        if  profile_form.is_valid():
+            userForm.save()
+            profile_form.save()
+            return redirect('index')
+    else:
+        profile_form = ProfileForm(instance=request.user)
+        user_form = UserUpdateForm(instance=request.user)
+        params = {
+            'user_form':user_form,
+            'profile_form': profile_form
+        }
+    return render(request, 'update_profile.html', params)
 
 @login_required(login_url="/accounts/login/")
 def new_post(request):
